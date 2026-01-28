@@ -1,1 +1,3 @@
 /target
+src/target/rust-analyzer/flycheck0
+Cargo.lock
