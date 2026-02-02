@@ -1,5 +1,8 @@
+use std::io;
+
 use clap::CommandFactory;
 use clap::Parser;
+use clap_complete;
 
 use crate::cmd::{style, tokenizer};
 
@@ -14,7 +17,14 @@ pub struct Cli {
 
 #[derive(clap::Subcommand, Debug)]
 enum Subcommand {
+    /// Display version information
     Version,
+
+    /// Generate shell completions
+    Completion {
+        /// Target shell
+        sh: clap_complete::Shell,
+    },
 }
 
 impl Cli {
@@ -38,8 +48,14 @@ impl Cli {
         match cli.subcommand {
             Some(Subcommand::Version) => {
                 let version = Self::command().render_version();
-                println!("{}", version);
+                print!("{}", version);
             }
+
+            Some(Subcommand::Completion { sh }) => {
+                let mut cmd = Self::command();
+                clap_complete::generate(sh, &mut cmd, "calcr", &mut io::stdout());
+            }
+
             None => {
                 let mut cmd = Self::command();
                 cmd.print_help().unwrap();
