@@ -7,7 +7,7 @@ use crate::cmd::{style, tokenizer};
 pub struct Cli {
     // #[command(subcommand)]
     // subcommand: Option<Subcommand>,
-    expr: String,
+    expr: Vec<String>,
 }
 
 #[derive(clap::Subcommand, Debug)]
@@ -20,6 +20,6 @@ impl Cli {
     pub fn start() {
         let cli = Self::parse();
 
-        println!("{}", tokenizer::parse(&cli.expr));
+        println!("{}", tokenizer::parse(cli.expr));
     }
 }

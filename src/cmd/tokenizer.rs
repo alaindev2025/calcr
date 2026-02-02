@@ -9,13 +9,12 @@ enum Token {
 }
 
 impl Tokenizer {
-    fn tokenize(string: &str) -> Vec<Token> {
-        string
-            .split_whitespace()
-            .map(|s| match s {
+    fn tokenize(args: Vec<String>) -> Vec<Token> {
+        args.into_iter()
+            .map(|s| match s.as_str() {
                 "+" => Token::Plus,
                 "-" => Token::Minus,
-                val => Token::Value(val.parse().expect("Cannot parse values")),
+                val => Token::Value(val.parse().expect("Error: cannot parse values")),
             })
             .collect()
     }
@@ -40,7 +39,7 @@ impl Tokenizer {
     }
 }
 
-pub fn parse(expr: &str) -> i32 {
+pub fn parse(expr: Vec<String>) -> i32 {
     let tokens = Tokenizer::tokenize(expr);
     Tokenizer::parse(tokens)
 }
