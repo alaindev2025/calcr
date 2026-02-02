@@ -5,7 +5,7 @@ mod config;
 fn main() -> Result<()> {
     color_eyre::install()?;
 
-    cmd::cli::Cli::run();
+    cmd::cli::Cli::start();
 
     Ok(())
 }

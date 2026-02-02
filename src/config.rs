@@ -7,6 +7,7 @@ use std::path::PathBuf;
 #[derive(Debug, Deserialize)]
 pub struct Config {}
 
+#[allow(dead_code)]
 impl Config {
     fn get_path() -> PathBuf {
         dirs::config_dir().unwrap().join("prueba/config.toml")
