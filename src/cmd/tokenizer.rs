@@ -1,13 +1,12 @@
 use core::panic;
 
-pub struct Tokenizer;
-
 enum Token {
     Value(i32),
     Plus,
     Minus,
 }
 
+pub struct Tokenizer;
 impl Tokenizer {
     fn tokenize(args: Vec<String>) -> Vec<Token> {
         args.into_iter()

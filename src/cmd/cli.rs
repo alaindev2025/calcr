@@ -12,6 +12,7 @@ pub struct Cli {
     #[command(subcommand)]
     subcommand: Option<Subcommand>,
 
+    /// Algebraic expression
     expr: Option<Vec<String>>,
 }
 
