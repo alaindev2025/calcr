@@ -1,3 +1,4 @@
+use crate::cmd::style::get_style;
 use std::io;
 
 use clap::{
@@ -8,7 +9,7 @@ use clap::{
 use crate::config;
 
 #[derive(Parser)]
-#[command(version)]
+#[command(version, styles = get_style())]
 pub struct Cli {
     #[command(subcommand)]
     pub subcommands: Cmd,

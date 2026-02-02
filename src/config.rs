@@ -5,9 +5,7 @@ use std::io::Write;
 use std::path::PathBuf;
 
 #[derive(Debug, Deserialize)]
-pub struct Config {
-    pub precise: i32,
-}
+pub struct Config {}
 
 impl Config {
     fn get_path() -> PathBuf {
