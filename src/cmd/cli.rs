@@ -1,3 +1,4 @@
+use clap::CommandFactory;
 use clap::Parser;
 
 use crate::cmd::{style, tokenizer};
@@ -7,7 +8,7 @@ use crate::cmd::{style, tokenizer};
 pub struct Cli {
     // #[command(subcommand)]
     // subcommand: Option<Subcommand>,
-    expr: Vec<String>,
+    expr: Option<Vec<String>>,
 }
 
 #[derive(clap::Subcommand, Debug)]
@@ -20,6 +21,15 @@ impl Cli {
     pub fn start() {
         let cli = Self::parse();
 
-        println!("{}", tokenizer::parse(cli.expr));
+        match cli.expr {
+            Some(v) => {
+                let result = tokenizer::parse(v);
+                println!("Result: {}", result)
+            }
+            None => {
+                let mut cmd = Self::command();
+                cmd.print_help().unwrap();
+            }
+        }
     }
 }
