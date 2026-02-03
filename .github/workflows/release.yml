@@ -3,11 +3,22 @@ name: Release Binary
 on:
   push:
     tags:
-      - 'v*' # Se activa cuando creas un tag como v1.0.0
+      - 'v*'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact_name: calcr
+            asset_name: calcr-linux
+          - os: windows-latest
+            artifact_name: calcr.exe
+            asset_name: calcr-windows.exe
+
     steps:
       - uses: actions/checkout@v4
 
@@ -20,6 +31,8 @@ jobs:
       - name: Upload Binary
         uses: softprops/action-gh-release@v2
         with:
-          files: target/release/calcr # El nombre de tu binario
+          files: target/release/${{ matrix.artifact_name }}
+          # Esto le pone nombres distintos para que no se choquen
+          name: Release ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
